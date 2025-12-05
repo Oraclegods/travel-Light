@@ -158,3 +158,176 @@ h1, h2, h3 {
 .modal.hidden {
     display: none !important;
 }
+
+
+/* Search Section */
+.search-section {
+    margin-top: 2rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.search-bar {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.search-bar input {
+    flex-grow: 1;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.place-card {
+    border: 1px solid #eee;
+    padding: 1rem;
+    border-radius: 8px;
+    background: var(--bg-offwhite);
+}
+
+.place-card h4 {
+    color: var(--primary-teal);
+    margin-bottom: 0.5rem;
+}
+
+
+
+.place-card h4 {
+    color: var(--primary-teal);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+.place-card p {
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    color: #555;
+}
+
+
+
+/* Weather Widget */
+.weather-widget {
+    background: #eefcfb;
+    border: 1px solid var(--primary-teal);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    min-width: 150px;
+    text-align: center;
+}
+
+.weather-current {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.weather-current img {
+    width: 40px;
+    height: 40px;
+}
+
+.weather-current .temp {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-teal);
+    display: block;
+}
+
+.weather-current .condition {
+    font-size: 0.8rem;
+    color: var(--neutral-dark);
+}
+
+/* Adjust header to fit weather */
+.details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+}
+
+
+
+/* Layout Columns */
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Main content takes 2/3, Budget takes 1/3 */
+    gap: 2rem;
+    align-items: start;
+}
+
+@media (max-width: 768px) {
+    .content-grid { grid-template-columns: 1fr; }
+}
+
+/* Budget Card */
+.budget-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.budget-stats {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.progress-bar-container {
+    background: #e9ecef;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.remaining {
+    text-align: right;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Expense List */
+.expense-list {
+    list-style: none;
+    margin-top: 1rem;
+    padding: 0;
+}
+
+.expense-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+}
+
+.expense-list .price {
+    color: #e63946;
+    font-weight: bold;
+}
+
+/* Expense Form Inputs */
+#expense-form input, #expense-form select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}

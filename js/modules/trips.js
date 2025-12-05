@@ -51,3 +51,75 @@ export const deleteTrip = (tripId) => {
     }
     setSession(currentUser);
 };
+
+
+// ...activities features
+
+export const addActivity = (tripId, activity) => {
+    const user = getSession();
+    const trip = user.trips.find(t => t.id === tripId);
+
+    if (trip) {
+        // Ensure activities array exists
+        if (!trip.activities) trip.activities = [];
+        
+        // Add the new activity
+        trip.activities.push({
+            id: Date.now(),
+            ...activity
+        });
+
+        // Save back to storage
+        const allUsers = getStoredUsers();
+        const userIndex = allUsers.findIndex(u => u.email === user.email);
+        allUsers[userIndex] = user;
+        localStorage.setItem('travel_light_users', JSON.stringify(allUsers));
+        setSession(user); // Update current session
+        return true;
+    }
+    return false;
+};
+
+
+// budgeting features
+
+export const setTripBudget = (tripId, amount) => {
+    const user = getSession();
+    const trip = user.trips.find(t => t.id === tripId);
+    
+    if (trip) {
+        trip.budget = Number(amount);
+        
+        // Save to LocalStorage
+        const allUsers = getStoredUsers();
+        const userIndex = allUsers.findIndex(u => u.email === user.email);
+        allUsers[userIndex] = user;
+        localStorage.setItem('travel_light_users', JSON.stringify(allUsers));
+        setSession(user);
+        return true;
+    }
+    return false;
+};
+
+export const addExpense = (tripId, expense) => {
+    const user = getSession();
+    const trip = user.trips.find(t => t.id === tripId);
+    
+    if (trip) {
+        if (!trip.expenses) trip.expenses = [];
+        
+        trip.expenses.push({
+            id: Date.now(),
+            ...expense
+        });
+
+        // Save
+        const allUsers = getStoredUsers();
+        const userIndex = allUsers.findIndex(u => u.email === user.email);
+        allUsers[userIndex] = user;
+        localStorage.setItem('travel_light_users', JSON.stringify(allUsers));
+        setSession(user);
+        return true;
+    }
+    return false;
+};

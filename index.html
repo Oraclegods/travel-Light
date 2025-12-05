@@ -7,6 +7,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtDvM9lzZn2YjLHEd_TrY6ePAM8Ahffvk&libraries=places&callback=initGoogle">
+</script>
+
+<script>
+    function initGoogle() {
+        console.log("Google Maps API Loaded");
+        window.googleApiLoaded = true;
+    }
+</script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
