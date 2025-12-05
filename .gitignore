@@ -1,2 +1,5 @@
 node_modules/
 .env
+
+# Ignore the configuration file containing secrets
+js/config.js
