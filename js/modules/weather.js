@@ -2,7 +2,7 @@
 
 // FIX 1: Put your actual key here inside the quotes
 const API_KEY = 'ef29025c1d6d48de8f7140228250512'; 
-const BASE_URL = 'http://api.weatherapi.com/v1';
+const BASE_URL = 'https://api.weatherapi.com/v1';
 
 export const getWeather = async (city) => {
     try {
