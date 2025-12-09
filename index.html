@@ -3,39 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Light - Itinerary Builder</title>
+    
+    <title>Travel Light - Itinerary Builder & Budget Tracker</title>
+    <meta name="description" content="Plan your perfect trip with Travel Light. Create itineraries, track travel budgets, check weather, and discover local attractions in one simple app.">
+    <meta name="keywords" content="travel planner, itinerary builder, budget tracker, travel app, vacation planning">
+    <meta name="author" content="Travel Light Team">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtDvM9lzZn2YjLHEd_TrY6ePAM8Ahffvk&libraries=places&callback=initGoogle">
-</script>
-
-<script>
-    function initGoogle() {
-        console.log("Google Maps API Loaded");
-        window.googleApiLoaded = true;
-    }
-</script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtDvM9lzZn2YjLHEd_TrY6ePAM8Ahffvk&libraries=places&callback=initGoogle">
+    </script>
+    <script>
+        function initGoogle() { console.log("Google Maps Loaded"); window.googleApiLoaded = true; }
+    </script>
+    
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-                <span role="img" aria-label="suitcase icon">🧳</span> Travel Light
-            </div>
-            <div id="user-controls">
+    <div class="app-wrapper">
+        <header>
+            <nav class="navbar">
+                <div class="logo">
+                    <span role="img" aria-label="suitcase icon">🧳</span> Travel Light
                 </div>
-        </nav>
-    </header>
+                <div id="user-controls">
+                    </div>
+            </nav>
+        </header>
 
-    <main id="app">
-        <section id="hero" class="fade-in">
-            <h1>Plan your next adventure.</h1>
-            <button id="get-started-btn" class="btn-primary">Get Started</button>
-        </section>
-    </main>
+        <main id="app">
+            </main>
+
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2025 Travel Light. Plan your adventure.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <script type="module" src="js/main.js"></script>
 </body>

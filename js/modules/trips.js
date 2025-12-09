@@ -6,82 +6,65 @@ export const getTrips = () => {
 };
 
 export const createTrip = (tripData) => {
-    // 1. Get current session
     const currentUser = getSession();
     
-    // 2. Create Trip Object
     const newTrip = {
-        id: Date.now(), // Simple unique ID
+        id: Date.now(),
         destination: tripData.destination,
         startDate: tripData.startDate,
         endDate: tripData.endDate,
         description: tripData.description,
-        activities: [] // Placeholder for next week
+        activities: [],
+        expenses: [],
+        budget: 0
     };
 
-    // 3. Update current user object
     if (!currentUser.trips) currentUser.trips = [];
     currentUser.trips.push(newTrip);
 
-    // 4. Update "Database" (All Users)
-    const allUsers = getStoredUsers();
-    const userIndex = allUsers.findIndex(u => u.email === currentUser.email);
-    
-    if (userIndex !== -1) {
-        allUsers[userIndex] = currentUser;
-        localStorage.setItem('travel_light_users', JSON.stringify(allUsers));
-    }
-
-    // 5. Update Session
-    setSession(currentUser);
-
+    saveUserChanges(currentUser);
     return newTrip;
+};
+
+// NEW: Function to handle Editing
+export const updateTrip = (updatedTrip) => {
+    const user = getSession();
+    const index = user.trips.findIndex(t => t.id === updatedTrip.id);
+    
+    if (index !== -1) {
+        // Keep existing activities/expenses, only update details
+        user.trips[index] = {
+            ...user.trips[index], // Keep old data (like ID)
+            ...updatedTrip,       // Overwrite with new form data
+            activities: user.trips[index].activities, // Protect these arrays
+            expenses: user.trips[index].expenses,
+            budget: user.trips[index].budget
+        };
+
+        saveUserChanges(user);
+        return true;
+    }
+    return false;
 };
 
 export const deleteTrip = (tripId) => {
     const currentUser = getSession();
     currentUser.trips = currentUser.trips.filter(t => t.id !== tripId);
-    
-    // Save changes
-    const allUsers = getStoredUsers();
-    const userIndex = allUsers.findIndex(u => u.email === currentUser.email);
-    if (userIndex !== -1) {
-        allUsers[userIndex] = currentUser;
-        localStorage.setItem('travel_light_users', JSON.stringify(allUsers));
-    }
-    setSession(currentUser);
+    saveUserChanges(currentUser);
 };
-
-
-// ...activities features
 
 export const addActivity = (tripId, activity) => {
     const user = getSession();
     const trip = user.trips.find(t => t.id === tripId);
 
     if (trip) {
-        // Ensure activities array exists
         if (!trip.activities) trip.activities = [];
-        
-        // Add the new activity
-        trip.activities.push({
-            id: Date.now(),
-            ...activity
-        });
-
-        // Save back to storage
-        const allUsers = getStoredUsers();
-        const userIndex = allUsers.findIndex(u => u.email === user.email);
-        allUsers[userIndex] = user;
-        localStorage.setItem('travel_light_users', JSON.stringify(allUsers));
-        setSession(user); // Update current session
+        trip.activities.push({ id: Date.now(), ...activity });
+        saveUserChanges(user);
         return true;
     }
     return false;
 };
-
-
-// budgeting features
 
 export const setTripBudget = (tripId, amount) => {
     const user = getSession();
@@ -89,13 +72,7 @@ export const setTripBudget = (tripId, amount) => {
     
     if (trip) {
         trip.budget = Number(amount);
-        
-        // Save to LocalStorage
-        const allUsers = getStoredUsers();
-        const userIndex = allUsers.findIndex(u => u.email === user.email);
-        allUsers[userIndex] = user;
-        localStorage.setItem('travel_light_users', JSON.stringify(allUsers));
-        setSession(user);
+        saveUserChanges(user);
         return true;
     }
     return false;
@@ -107,19 +84,20 @@ export const addExpense = (tripId, expense) => {
     
     if (trip) {
         if (!trip.expenses) trip.expenses = [];
-        
-        trip.expenses.push({
-            id: Date.now(),
-            ...expense
-        });
-
-        // Save
-        const allUsers = getStoredUsers();
-        const userIndex = allUsers.findIndex(u => u.email === user.email);
-        allUsers[userIndex] = user;
-        localStorage.setItem('travel_light_users', JSON.stringify(allUsers));
-        setSession(user);
+        trip.expenses.push({ id: Date.now(), ...expense });
+        saveUserChanges(user);
         return true;
     }
     return false;
+};
+
+// Helper to save to localStorage
+const saveUserChanges = (user) => {
+    const allUsers = getStoredUsers();
+    const userIndex = allUsers.findIndex(u => u.email === user.email);
+    if (userIndex !== -1) {
+        allUsers[userIndex] = user;
+        localStorage.setItem('travel_light_users', JSON.stringify(allUsers));
+    }
+    setSession(user);
 };
